@@ -4,10 +4,6 @@
 //     active: bool,
 // }
 use std::fs;
-struct Rect{
-    width: u32,
-    height: u32,
-}
 
 struct Point<T>{
     x: T,
@@ -27,6 +23,18 @@ impl NoShape{
     }
 }
 
+enum Direction{
+    North,
+    South,
+    East,
+    West,
+}
+
+struct Rect{
+    width: u32,
+    height: u32,
+}
+
 impl Rect{
     fn area(&self) -> u32 {
         return self.width * self.height
@@ -34,13 +42,14 @@ impl Rect{
     fn perimeter(&self) -> u32 {
         return 2 * (self.width + self.height)
     }
+    fn debug() -> &'static str {
+        "Debugging Rect struct"
+    }
 }
 
-enum Direction{
-    North,
-    South,
-    East,
-    West,
+enum Shape{
+    Circle(f64),
+    Rectangle(f64,f64),
 }
 
 fn main() {
@@ -57,13 +66,20 @@ fn main() {
     };
     println!("Area of the rectangle: {}", rect.area());
     println!("Perimeter of the rectangle: {}", rect.perimeter());
+    println!("debug is {}", Rect::debug());
 
     let polygon_area = NoShape::area();
     println!("Area of no shape: {}", polygon_area);
 
     let mydirection = Direction::North;
-    let new_direction = mydirection;
+    let new_direction = mydirection; //No error because Direction is Copy type
     move_around(new_direction);
+
+
+    let rect = Shape::Rectangle(5.0,2.0);
+    calculate_area(rect);
+    let circle = Shape::Circle(3.0);
+    calculate_area(circle);
 
 
     //Error Handling with Structs
@@ -76,4 +92,13 @@ fn main() {
 
 fn move_around(_dir: Direction){
     //
+}
+
+
+fn calculate_area(shape:Shape)->f64{
+    let area = match shape{
+        Shape::Rectangle(a,b)=>a*b,
+        Shape::Circle(r)=>3.14*r*r,
+    };
+    return area;
 }
