@@ -38,14 +38,14 @@ fn main() {
     //The lifetime of the returned reference must be tied to the lifetime of the input references.
     //This is done using lifetime parameters in function signatures.
 
-    let longest_str_ref;
+    //let longest_str_ref;
     let str3 = String::from("a");
     {
         let str4 = String::from("aaaaaaaaaaaa");
-        longest_str_ref = longest_string_ref(str3.as_str(), str4.as_str());   
+        //longest_str_ref = longest_string_ref(str3.as_str(), str4.as_str());   
         // borrowed value foes not live logn enough  
     }
-    println!("The longest string is: {}", longest_str_ref);
+    //println!("The longest string is: {}", longest_str_ref);
     //borrow later used here
 
 }
